@@ -592,7 +592,7 @@ const App = memo(() => {
   };
 
   useEffect(() => {
-    addLog('Red Monitor iniciado', 'success');
+    addLog('Network Monitor And Cleaner iniciado', 'success');
     addLog('Haga clic en "Iniciar Monitoreo" para comenzar', 'info');
   }, [addLog]);
 
@@ -620,7 +620,7 @@ const App = memo(() => {
       <div className="header">
         <div className="header-left">
           <Shield className="logo" size={24} />
-          <h1>Red Monitor</h1>
+          <h1>Network Monitor And Cleaner</h1>
         </div>
         <div className="header-controls">
           <button 
@@ -1233,8 +1233,8 @@ const App = memo(() => {
              </div>
             <div className="help-modal-content">
               <div className="help-section">
-                <h3>🎯 ¿Qué es Red Monitor?</h3>
-                <p>Red Monitor es una herramienta de monitoreo de seguridad que detecta procesos maliciosos y conexiones sospechosas en tiempo real, combinando análisis de red con limpieza del sistema.</p>
+                <h3>🎯 ¿Qué es Network Monitor And Cleaner?</h3>
+              <p>Network Monitor And Cleaner es una herramienta de monitoreo de seguridad que detecta procesos maliciosos y conexiones sospechosas en tiempo real, combinando análisis de red con limpieza del sistema.</p>
               </div>
 
               <div className="help-section">
