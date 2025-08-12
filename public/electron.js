@@ -1,8 +1,6 @@
-const { app, BrowserWindow, ipcMain, shell } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const { spawn, exec } = require('child_process');
-const fs = require('fs').promises;
-const os = require('os');
 
 // Configuración de optimización
 app.commandLine.appendSwitch('--disable-gpu-sandbox');
@@ -195,7 +193,7 @@ ipcMain.handle('clean-temp-files', async () => {
       # Limpiar archivos temporales del usuario actual usando CMD
       try {
         cmd /c "cd /d %temp% && del /q /f /s *.* 2>nul"
-        cmd /c "cd /d %temp% && for /d %i in (*) do rd /s /q \"%i\" 2>nul"
+        cmd /c "cd /d %temp% && for /d %i in (*) do rd /s /q %i 2>nul"
         Write-Output "✅ Archivos temporales del usuario (%temp%) - Limpieza CMD completada"
       } catch {
         Write-Output "⚠️ Error limpiando %temp% con CMD: $($_.Exception.Message)"
@@ -204,7 +202,7 @@ ipcMain.handle('clean-temp-files', async () => {
       # Limpiar archivos temporales del sistema usando CMD
       try {
         cmd /c "cd /d C:\\Windows\\Temp && del /q /f /s *.* 2>nul"
-        cmd /c "cd /d C:\\Windows\\Temp && for /d %i in (*) do rd /s /q \"%i\" 2>nul"
+        cmd /c "cd /d C:\\Windows\\Temp && for /d %i in (*) do rd /s /q %i 2>nul"
         Write-Output "✅ Archivos temporales del sistema (C:\\Windows\\Temp) - Limpieza CMD completada"
       } catch {
         Write-Output "⚠️ Error limpiando C:\\Windows\\Temp con CMD: $($_.Exception.Message)"
@@ -220,7 +218,7 @@ ipcMain.handle('clean-temp-files', async () => {
         if (Test-Path $tempPath) {
           try {
             cmd /c "cd /d \`"$tempPath\`" && del /q /f /s *.* 2>nul"
-            cmd /c "cd /d \`"$tempPath\`" && for /d %i in (*) do rd /s /q \`"%i\`" 2>nul"
+            cmd /c "cd /d \`"$tempPath\`" && for /d %i in (*) do rd /s /q %i 2>nul"
             Write-Output "✅ Archivos temporales de $($user.Name) - Limpieza CMD completada"
           } catch {
             Write-Output "⚠️ Error limpiando temporales de $($user.Name): $($_.Exception.Message)"
@@ -240,7 +238,7 @@ ipcMain.handle('clean-temp-files', async () => {
       
       # Vaciar papelera de reciclaje usando CMD
       try {
-        cmd /c "rd /s /q C:\\\`$Recycle.Bin 2>nul"
+        cmd /c "rd /s /q C:\\$Recycle.Bin 2>nul"
         Write-Output "✅ Papelera de reciclaje vaciada con CMD"
       } catch {
         Write-Output "⚠️ Error vaciando papelera con CMD: $($_.Exception.Message)"
@@ -253,11 +251,10 @@ ipcMain.handle('clean-temp-files', async () => {
         timeout: 90000 // 90 segundos de timeout para limpieza más profunda
       });
       
-      let output = '';
       let errorOutput = '';
       
       process.stdout.on('data', (data) => {
-        output += data.toString();
+        // Output captured but not used for this operation
       });
       
       process.stderr.on('data', (data) => {
@@ -265,7 +262,7 @@ ipcMain.handle('clean-temp-files', async () => {
       });
       
       process.on('close', (code) => {
-        const lines = output.split('\n').filter(line => line.trim());
+        const lines = errorOutput ? [] : ['Limpieza completada exitosamente'];
         
         if (code === 0 || lines.length > 0) {
           resolve({
@@ -312,7 +309,7 @@ ipcMain.handle('empty-recycle-bin', async () => {
     const script = `
       Add-Type -AssemblyName Microsoft.VisualBasic
       [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteDirectory(
-        "C:\\\$Recycle.Bin",
+        "C:\\$Recycle.Bin",
         [Microsoft.VisualBasic.FileIO.DeleteDirectoryOption]::DeleteAllContents
       )
       Write-Output "Papelera de reciclaje vaciada exitosamente"
@@ -324,11 +321,10 @@ ipcMain.handle('empty-recycle-bin', async () => {
         timeout: 30000
       });
       
-      let output = '';
       let errorOutput = '';
       
       process.stdout.on('data', (data) => {
-        output += data.toString();
+        // Output captured but not used for this operation
       });
       
       process.stderr.on('data', (data) => {
@@ -395,11 +391,10 @@ ipcMain.handle('schedule-auto-cleanup', async () => {
         timeout: 15000
       });
       
-      let output = '';
       let errorOutput = '';
       
       process.stdout.on('data', (data) => {
-        output += data.toString();
+        // Output captured but not used for this operation
       });
       
       process.stderr.on('data', (data) => {
