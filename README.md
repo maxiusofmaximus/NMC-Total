@@ -32,10 +32,9 @@ Versión original diseñada para detectar y monitorear procesos maliciosos (troy
 
 - **🎨 Interfaz Moderna:**
   - Diseño inspirado en Windows 11 y Discord
-  - Tema oscuro con efectos de cristal (glass effect)
+  - Tema oscuro (Configurable)
   - Animaciones fluidas y transiciones suaves
   - Componentes responsivos y accesibles
-  - Panel deslizante para opciones de limpieza
 
 ### 🔍 **Funcionalidades Principales**
 - **Monitoreo en Tiempo Real**: Supervisa conexiones de red activas continuamente
