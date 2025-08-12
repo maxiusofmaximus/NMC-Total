@@ -1,74 +1,455 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' ws://localhost:*; font-src 'self';" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="NMC Total - Network Monitor And Cleaner en tiempo real"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>NMC Total</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      
-      body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
-        color: #ffffff;
-        overflow: hidden;
-      }
-      
-      #root {
-        height: 100vh;
-        width: 100vw;
-      }
-      
-      .loading {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        flex-direction: column;
-      }
-      
-      .loading-spinner {
-        width: 50px;
-        height: 50px;
-        border: 3px solid rgba(255, 255, 255, 0.1);
-        border-top: 3px solid #00d4ff;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin-bottom: 20px;
-      }
-      
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-      
-      .loading-text {
-        font-size: 18px;
-        color: #00d4ff;
-        font-weight: 500;
-      }
-    </style>
-  </head>
-  <body>
-    <noscript>Necesitas habilitar JavaScript para ejecutar esta aplicación.</noscript>
-    <div id="root">
-      <div class="loading">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Cargando NMC Total...</div>
-      </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMC Total - Network Monitor And Cleaner</title>
+    <meta name="description" content="Herramienta profesional de monitoreo de red y limpieza de sistema. Detecta malware, monitorea conexiones y optimiza tu PC.">
+    <meta name="keywords" content="network monitor, malware detection, system cleaner, security, windows">
+    <meta name="author" content="maxiusofmaximus">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nmc-total.vercel.app/">
+    <meta property="og:title" content="NMC Total - Network Monitor And Cleaner">
+    <meta property="og:description" content="Herramienta profesional de monitoreo de red y limpieza de sistema">
+    <meta property="og:image" content="https://nmc-total.vercel.app/assets/preview.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://nmc-total.vercel.app/">
+    <meta property="twitter:title" content="NMC Total - Network Monitor And Cleaner">
+    <meta property="twitter:description" content="Herramienta profesional de monitoreo de red y limpieza de sistema">
+    <meta property="twitter:image" content="https://nmc-total.vercel.app/assets/preview.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="loading-text">Cargando NMC Total...</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
     </div>
-  </body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>NMC Total</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Inicio</a>
+                <a href="#features" class="nav-link">Características</a>
+                <a href="#download" class="nav-link">Descargar</a>
+                <a href="#docs" class="nav-link">Documentación</a>
+                <a href="https://github.com/maxiusofmaximus/NMC-Total" class="nav-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i>
+                    <span>Herramienta de Seguridad Profesional</span>
+                </div>
+                <h1 class="hero-title">
+                    Network Monitor<br>
+                    <span class="gradient-text">& Cleaner</span>
+                </h1>
+                <p class="hero-description">
+                    Detecta malware, monitorea conexiones de red en tiempo real y optimiza tu sistema Windows con nuestra herramienta profesional de seguridad.
+                </p>
+                
+                <!-- Download Buttons -->
+                <div class="hero-buttons">
+                    <button id="download-btn" class="btn btn-primary btn-large">
+                        <i class="fas fa-download"></i>
+                        <span class="btn-text">Descargar para <span id="detected-os">Windows</span></span>
+                        <span class="btn-version">v1.0.0</span>
+                    </button>
+                    <button id="view-all-downloads" class="btn btn-secondary btn-large">
+                        <i class="fas fa-list"></i>
+                        Ver todas las versiones
+                    </button>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="total-downloads">0</div>
+                        <div class="stat-label">Descargas</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="github-stars">0</div>
+                        <div class="stat-label">Estrellas</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Gratis</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="app-preview">
+                    <div class="app-window">
+                        <div class="window-header">
+                            <div class="window-controls">
+                                <span class="control close"></span>
+                                <span class="control minimize"></span>
+                                <span class="control maximize"></span>
+                            </div>
+                            <div class="window-title">NMC Total - Network Monitor</div>
+                        </div>
+                        <div class="window-content">
+                            <div class="monitor-display">
+                                <div class="network-graph">
+                                    <div class="graph-line"></div>
+                                    <div class="graph-line"></div>
+                                    <div class="graph-line"></div>
+                                </div>
+                                <div class="status-indicators">
+                                    <div class="indicator active">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>Sistema Protegido</span>
+                                    </div>
+                                    <div class="indicator">
+                                        <i class="fas fa-network-wired"></i>
+                                        <span>Monitoreando Red</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Características Principales</h2>
+                <p class="section-description">
+                    Herramientas avanzadas de seguridad y monitoreo para proteger tu sistema
+                </p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="feature-title">Monitoreo en Tiempo Real</h3>
+                    <p class="feature-description">
+                        Supervisa todas las conexiones de red activas y detecta actividad sospechosa al instante.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-virus"></i>
+                    </div>
+                    <h3 class="feature-title">Detección de Malware</h3>
+                    <p class="feature-description">
+                        Identifica procesos maliciosos, troyanos y malware que utilizan conexiones de red.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-broom"></i>
+                    </div>
+                    <h3 class="feature-title">Limpieza Automática</h3>
+                    <p class="feature-description">
+                        Limpia archivos temporales, DNS cache y optimiza el rendimiento del sistema.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Análisis Visual</h3>
+                    <p class="feature-description">
+                        Gráficos interactivos y reportes detallados del estado de tu red y sistema.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="feature-title">Temas Personalizables</h3>
+                    <p class="feature-description">
+                        Interfaz moderna con múltiples temas: Oscuro, Claro, Azul y Morado.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3 class="feature-title">Configuración Avanzada</h3>
+                    <p class="feature-description">
+                        Panel de configuración completo con opciones de automatización y personalización.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="download-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Descargar NMC Total</h2>
+                <p class="section-description">
+                    Elige la opción de descarga que mejor se adapte a tus necesidades
+                </p>
+            </div>
+            
+            <div class="download-options">
+                <!-- Automatic Download -->
+                <div class="download-card featured">
+                    <div class="download-header">
+                        <i class="fas fa-magic"></i>
+                        <h3>Descarga Automática</h3>
+                        <span class="recommended-badge">Recomendado</span>
+                    </div>
+                    <p class="download-description">
+                        Detectamos automáticamente tu sistema operativo y te proporcionamos la versión correcta.
+                    </p>
+                    <div class="download-info">
+                        <div class="info-item">
+                            <span class="info-label">Sistema:</span>
+                            <span class="info-value" id="auto-detected-os">Detectando...</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Versión:</span>
+                            <span class="info-value" id="latest-version">Cargando...</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Tamaño:</span>
+                            <span class="info-value" id="download-size">Calculando...</span>
+                        </div>
+                    </div>
+                    <button id="auto-download-btn" class="btn btn-primary btn-large">
+                        <i class="fas fa-download"></i>
+                        Descargar Ahora
+                    </button>
+                </div>
+                
+                <!-- Manual Download -->
+                <div class="download-card">
+                    <div class="download-header">
+                        <i class="fab fa-github"></i>
+                        <h3>Descarga Manual</h3>
+                    </div>
+                    <p class="download-description">
+                        Accede directamente a GitHub Releases para ver todas las versiones disponibles.
+                    </p>
+                    <div class="download-platforms">
+                        <div class="platform-item">
+                            <i class="fab fa-windows"></i>
+                            <span>Windows 10/11</span>
+                        </div>
+                        <div class="platform-item">
+                            <i class="fab fa-apple"></i>
+                            <span>macOS (Próximamente)</span>
+                        </div>
+                        <div class="platform-item">
+                            <i class="fab fa-linux"></i>
+                            <span>Linux (Próximamente)</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/maxiusofmaximus/NMC-Total/releases" target="_blank" class="btn btn-secondary btn-large">
+                        <i class="fas fa-external-link-alt"></i>
+                        Ver en GitHub
+                    </a>
+                </div>
+                
+                <!-- Source Code -->
+                <div class="download-card">
+                    <div class="download-header">
+                        <i class="fas fa-code"></i>
+                        <h3>Código Fuente</h3>
+                    </div>
+                    <p class="download-description">
+                        Descarga el código fuente completo para compilar tu propia versión o contribuir al proyecto.
+                    </p>
+                    <div class="source-options">
+                        <a href="https://github.com/maxiusofmaximus/NMC-Total/archive/refs/heads/main.zip" class="source-link">
+                            <i class="fas fa-file-archive"></i>
+                            <span>Descargar ZIP</span>
+                        </a>
+                        <div class="git-clone">
+                            <code>git clone https://github.com/maxiusofmaximus/NMC-Total.git</code>
+                            <button class="copy-btn" data-copy="git clone https://github.com/maxiusofmaximus/NMC-Total.git">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <a href="https://github.com/maxiusofmaximus/NMC-Total" target="_blank" class="btn btn-outline btn-large">
+                        <i class="fab fa-github"></i>
+                        Ver Repositorio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Modal -->
+    <div id="installation-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Instalando NMC Total</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="installation-progress">
+                    <div class="progress-step active">
+                        <div class="step-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div class="step-content">
+                            <h4>Descargando</h4>
+                            <p>Obteniendo la última versión desde GitHub...</p>
+                        </div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="step-content">
+                            <h4>Verificando</h4>
+                            <p>Comprobando integridad del archivo...</p>
+                        </div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="step-content">
+                            <h4>Completado</h4>
+                            <p>¡Listo para usar!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="installation-info">
+                    <p><strong>Archivo:</strong> <span id="download-filename">NMC-Total-Setup.exe</span></p>
+                    <p><strong>Tamaño:</strong> <span id="download-filesize">~50 MB</span></p>
+                    <p><strong>Versión:</strong> <span id="download-version">1.0.0</span></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="open-downloads" class="btn btn-primary">
+                    <i class="fas fa-folder-open"></i>
+                    Abrir Descargas
+                </button>
+                <button class="btn btn-secondary modal-close">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>NMC Total</span>
+                    </div>
+                    <p class="footer-description">
+                        Herramienta profesional de monitoreo de red y limpieza de sistema para Windows.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://github.com/maxiusofmaximus/NMC-Total" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Producto</h4>
+                    <ul>
+                        <li><a href="#features">Características</a></li>
+                        <li><a href="#download">Descargar</a></li>
+                        <li><a href="https://github.com/maxiusofmaximus/NMC-Total/releases" target="_blank">Changelog</a></li>
+                        <li><a href="https://github.com/maxiusofmaximus/NMC-Total/issues" target="_blank">Reportar Bug</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="https://github.com/maxiusofmaximus/NMC-Total/blob/main/README.md" target="_blank">Documentación</a></li>
+                        <li><a href="https://github.com/maxiusofmaximus/NMC-Total/blob/main/DOCKER.md" target="_blank">Guía Docker</a></li>
+                        <li><a href="https://github.com/maxiusofmaximus/NMC-Total/blob/main/SECURITY.md" target="_blank">Seguridad</a></li>
+                        <li><a href="https://github.com/maxiusofmaximus/NMC-Total" target="_blank">Código Fuente</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Soporte</h4>
+                    <ul>
+                        <li><a href="https://github.com/maxiusofmaximus/NMC-Total/discussions" target="_blank">Comunidad</a></li>
+                        <li><a href="https://github.com/maxiusofmaximus/NMC-Total/issues" target="_blank">Issues</a></li>
+                        <li><a href="mailto:maxiusofmaximus@github.com">Contacto</a></li>
+                        <li><a href="https://github.com/maxiusofmaximus/NMC-Total/blob/main/LICENSE" target="_blank">Licencia</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 NMC Total. Desarrollado por <a href="https://github.com/maxiusofmaximus" target="_blank">maxiusofmaximus</a></p>
+                <p>Herramienta de código abierto para la seguridad de redes</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/assets/script.js"></script>
+</body>
 </html>
