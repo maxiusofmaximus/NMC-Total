@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo, memo } from 'react';
 import { Monitor, Shield, Activity, Trash2, Play, Square, RefreshCw, AlertTriangle, CheckCircle, XCircle, Settings, HelpCircle, Palette } from 'lucide-react';
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import './App.css';
 
 // Componente optimizado para filas de conexión
@@ -248,8 +248,7 @@ const App = memo(() => {
     };
   }, [connections, isLocalIP]);
 
-  // Colores para gráficos
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D', '#FFC658', '#FF7C7C', '#8DD1E1', '#D084D0'];
+
 
   // Función optimizada de análisis de riesgo con caché y algoritmos mejorados
   const analyzeRisk = useCallback((connection) => {
