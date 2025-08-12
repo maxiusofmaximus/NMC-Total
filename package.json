@@ -2,6 +2,7 @@
   "name": "nmc-total",
   "version": "1.0.0",
   "description": "NMC Total - Network Monitor And Cleaner",
+  "author": "maxiusofmaximus",
   "private": true,
   "main": "public/electron.js",
   "homepage": "./",
@@ -20,12 +21,12 @@
     "dist:linux": "npm run build && electron-builder --linux"
   },
   "dependencies": {
-    "electron": "^28.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1"
   },
   "devDependencies": {
+    "electron": "^28.0.0",
     "electron-builder": "^24.9.1",
     "concurrently": "^8.2.2",
     "wait-on": "^7.2.0"
@@ -59,7 +60,8 @@
           "target": "dmg",
           "arch": ["x64", "arm64"]
         }
-      ]
+      ],
+      "icon": "public/logo.svg"
     },
     "win": {
       "target": [
@@ -67,7 +69,8 @@
           "target": "nsis",
           "arch": ["x64"]
         }
-      ]
+      ],
+      "icon": "public/logo.ico"
     },
     "linux": {
       "target": [
@@ -75,7 +78,8 @@
           "target": "AppImage",
           "arch": ["x64"]
         }
-      ]
+      ],
+      "icon": "public/logo.svg"
     },
     "nsis": {
       "oneClick": false,

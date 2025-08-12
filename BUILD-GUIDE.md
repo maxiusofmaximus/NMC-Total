@@ -14,6 +14,16 @@ npm --version   # v9.0.0 o superior
 npm install -g electron-builder
 ```
 
+## 🎨 Logo de la Aplicación
+
+NMC Total incluye un logo SVG personalizado ubicado en `public/logo.svg` que representa:
+- Monitoreo de red con nodos conectados y animaciones de flujo de datos
+- Limpieza del sistema con un ícono de cepillo de limpieza
+- Diseño moderno con gradientes en colores azul y verde
+- Ondas de señal animadas y paquetes de datos
+
+El logo se utiliza automáticamente como ícono de la aplicación para todas las plataformas (Windows, macOS, Linux).
+
 ## 🚀 Compilación Rápida
 
 ### 1. Instalar Dependencias
