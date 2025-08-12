@@ -20,7 +20,7 @@
     "react-scripts": "5.0.1",
     "electron": "^22.0.0",
     "electron-builder": "^23.6.0",
-    "lucide-react": "^0.263.1",
+    "lucide-react": "^0.539.0",
     "recharts": "^2.7.2",
     "web-vitals": "^2.1.4"
   },
