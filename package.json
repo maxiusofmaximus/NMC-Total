@@ -1,21 +1,6 @@
 {
-  "name": "nmc-total-landing",
+  "name": "nmc-total-static",
   "version": "1.0.0",
-  "description": "NMC Total - Landing Page for Network Monitor And Cleaner",
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/maxiusofmaximus/NMC-Total.git"
-  },
-  "author": "maxiusofmaximus",
-  "license": "SEE LICENSE IN LICENSE",
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "scripts": {
-    "build": "echo 'Static files ready'",
-    "start": "echo 'Static site - no start command needed'"
-  },
-  "devDependencies": {},
-  "dependencies": {}
+  "description": "Static landing page for NMC Total",
+  "private": true
 }

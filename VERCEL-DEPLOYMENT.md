@@ -1,10 +1,25 @@
-# NMC Total - Vercel Deployment Guide
+# Configuración de Vercel para NMC Total
 
-## 📁 Estructura del Proyecto para Vercel
+Este documento explica la estructura del proyecto y la configuración específica para el deployment en Vercel como sitio estático.
 
-Este proyecto está configurado para desplegarse en Vercel como una página estática con APIs serverless.
+## Estructura del Proyecto para Vercel
 
-### Archivos Principales
+### Archivos principales para Vercel:
+- `public/` - Archivos estáticos (HTML, CSS, JS, imágenes)
+- `api/` - Funciones serverless de Vercel
+- `vercel.json` - Configuración simplificada de Vercel
+- `package.json` - Configuración mínima (solo metadatos)
+- `.vercelignore` - Archivos a ignorar en el deployment
+
+### Archivos de desarrollo (IGNORADOS por Vercel):
+- `src/` - Código fuente de React (solo para desarrollo local)
+- `package-electron.json` - Configuración original de Electron
+- `*.py` - Scripts de Python
+- `*.bat`, `*.ps1` - Scripts de Windows
+- `Dockerfile`, `docker-compose.yml` - Configuración de Docker
+- `node_modules/` - Dependencias de Node.js
+
+### Estructura Detallada
 
 ```
 ├── public/                 # Archivos estáticos (HTML, CSS, JS)
@@ -22,69 +37,116 @@ Este proyecto está configurado para desplegarse en Vercel como una página est�
 └── package.json           # Configuración simplificada para Vercel
 ```
 
-### Archivos de Desarrollo (No desplegados)
-
-```
-├── package-electron.json  # Configuración original con React/Electron
-├── src/                   # Código fuente de React (desarrollo local)
-├── Dockerfile             # Para desarrollo con Docker
-├── docker-compose.yml     # Orquestación local
-└── *.bat, *.ps1          # Scripts de Windows para desarrollo
-```
-
 ## 🚀 Configuración de Vercel
 
-### vercel.json
+### `vercel.json` (Configuración Estática)
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "public/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/public/assets/$1"
+    },
+    {
+      "src": "/",
+      "dest": "/public/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
+    }
+  ]
+}
+```
+
+### `package.json` (Mínimo)
+```json
+{
+  "name": "nmc-total-static",
+  "version": "1.0.0",
+  "description": "Static landing page for NMC Total",
+  "private": true
+}
+```
+
+**IMPORTANTE:** No incluir scripts de build ni dependencias para evitar que Vercel intente ejecutar procesos de build innecesarios.
+
+### Configuración Clave
 
 - **buildCommand**: Vacío para evitar builds de React
 - **outputDirectory**: `public` para servir archivos estáticos
 - **Routes**: Configuradas para APIs y archivos estáticos
 - **Headers**: Seguridad HTTP configurada
-
-### package.json
-
-- Simplificado sin dependencias de React
-- Solo comandos básicos para Vercel
-- Node.js >= 18.0.0
+- **Node.js**: >= 18.0.0
 
 ## 🔧 Solución de Problemas
 
-### Errores Comunes Resueltos
+### Error: `react-scripts: command not found`
 
-1. **`react-scripts: command not found`**
-   - ✅ Solucionado: package.json simplificado sin React dependencies
-   - ✅ buildCommand vacío en vercel.json
+**Causa**: Vercel detecta un `package.json` con scripts de build y intenta ejecutar `npm run build`.
 
-2. **`npm warn config cache-max/cache-min deprecated`**
-   - ✅ Solucionado: .vercelignore incluye .npmrc
-   - ✅ package.json actualizado sin configuraciones obsoletas
+**Solución Aplicada**:
+1. ✅ Eliminado `buildCommand` y `outputDirectory` de `vercel.json`
+2. ✅ Simplificado `package.json` sin scripts ni dependencias
+3. ✅ Configurado `.vercelignore` para excluir archivos de desarrollo
+4. ✅ Usado solo `@vercel/static` para archivos estáticos
 
-3. **`Running pip as root user warning`**
-   - ✅ Solucionado: .vercelignore excluye archivos Python
-   - ✅ requirements.txt no se procesa en Vercel
+### Advertencias Comunes (No críticas)
 
-4. **`New major version of npm available`**
-   - ✅ Solucionado: engines especifica Node.js >= 18.0.0
-   - ✅ Vercel usa versiones actualizadas automáticamente
+**Node.js version warning**: 
+- Mensaje: `Detected "engines": { "node": ">=16.0.0" }`
+- Solución: Normal, Vercel usa la versión LTS más reciente
+
+**pip warning**: 
+- Mensaje: `Running pip as the 'root' user`
+- Solución: Normal en contenedores de Vercel, no afecta deployment
+
+**npm cache warnings**: 
+- Mensaje: `cache-max/cache-min deprecated`
+- Solución: Advertencias de deprecación, no afectan funcionalidad
+
+**npm update notice**:
+- Mensaje: `New major version of npm available`
+- Solución: Informativo, Vercel maneja las versiones automáticamente
 
 ## 📋 Checklist de Deployment
 
-- [x] vercel.json configurado correctamente
-- [x] .vercelignore creado
-- [x] package.json simplificado
-- [x] Archivos estáticos en /public
-- [x] APIs en /api
-- [x] Routes configuradas
-- [x] Headers de seguridad
-- [x] Archivos de desarrollo excluidos
+### Pre-deployment
+- [x] `vercel.json` configurado solo para archivos estáticos
+- [x] `package.json` mínimo sin scripts de build
+- [x] `.vercelignore` excluye todos los archivos de desarrollo
+- [x] APIs en `/api/` con funciones serverless
+- [x] Archivos estáticos en `/public/`
+- [x] Headers de seguridad configurados
+
+### Post-deployment
+- [ ] Verificar que el sitio carga correctamente
+- [ ] Probar API de download: `/api/download`
+- [ ] Probar API de stats: `/api/stats`
+- [ ] Verificar detección automática de OS
+- [ ] Configurar dominio personalizado (opcional)
+- [ ] Configurar variables de entorno (si necesario)
 
 ## 🌐 URLs de Producción
 
-Cuando se despliegue en Vercel:
-
-- **Página principal**: `https://tu-proyecto.vercel.app`
-- **API de descarga**: `https://tu-proyecto.vercel.app/api/download`
-- **API de estadísticas**: `https://tu-proyecto.vercel.app/api/stats`
+- **Sitio Principal**: `https://nmc-total.vercel.app`
+- **API Download**: `https://nmc-total.vercel.app/api/download`
+- **API Stats**: `https://nmc-total.vercel.app/api/stats`
 
 ## 🔄 Desarrollo Local vs Producción
 
@@ -103,6 +165,21 @@ npm start  # React development server
 
 ## 📝 Notas Importantes
 
+### Desarrollo vs Producción
+- **Desarrollo Local**: Usar servidor HTTP simple (`python -m http.server 8080`)
+- **Producción**: Vercel sirve archivos estáticos automáticamente
+- **APIs**: Funciones serverless en Node.js (solo en producción)
+- **Build Process**: NO hay proceso de build, solo archivos estáticos
+
+### Estructura de Deployment
+```
+Vercel Deployment:
+├── public/ → Servido como archivos estáticos
+├── api/ → Funciones serverless de Node.js
+└── vercel.json → Configuración de routing y headers
+```
+
+### Puntos Clave
 1. **Archivos Estáticos**: Todo en `/public` se sirve directamente
 2. **APIs Serverless**: Archivos en `/api` se ejecutan como funciones
 3. **Sin Build Process**: No se ejecuta `npm run build`

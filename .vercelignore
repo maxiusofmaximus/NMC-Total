@@ -1,95 +1,88 @@
-# Archivos y directorios a ignorar en Vercel
-
-# Node modules
+# Node.js and React - IGNORE ALL
 node_modules/
-
-# React build files (no necesarios para página estática)
+package-lock.json
 src/
 build/
+dist/
+.next/
+out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Electron files
+# Electron files - IGNORE ALL
 public/electron.js
 public/preload.js
+electron.js
+preload.js
+package-electron.json
 
-# Python files
+# Python files - IGNORE ALL
 *.py
 *.pyc
 __pycache__/
 requirements.txt
+venv/
+env/
+.env
+app.py
 
-# Docker files
+# Docker files - IGNORE ALL
 Dockerfile
 docker-compose.yml
 .dockerignore
 docker-build.bat
 
-# Scripts de Windows
+# Windows scripts - IGNORE ALL
 *.bat
 *.ps1
 
-# Archivos de configuración de desarrollo
+# Development configuration - IGNORE ALL
+.eslintrc.*
 .eslintrc.security.js
+.npmrc
 csp.config.js
 
-# Documentación
+# Documentation - IGNORE ALL
+*.md
 README.md
 DEPLOYMENT.md
 DOCKER.md
+VERCEL-DEPLOYMENT.md
 SECURITY.md
 LICENSE
 
-# Git
+# Git related - IGNORE ALL
 .git/
 .gitignore
-
-# GitHub workflows
 .github/
 
-# NPM
-.npmrc
-package-lock.json
-
-# Logs
+# Logs and runtime
+logs
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Runtime data
 pids
 *.pid
 *.seed
 *.pid.lock
-
-# Coverage directory used by tools like istanbul
 coverage/
-
-# nyc test coverage
 .nyc_output
-
-# Dependency directories
 jspm_packages/
-
-# Optional npm cache directory
 .npm
-
-# Optional REPL history
 .node_repl_history
-
-# Output of 'npm pack'
 *.tgz
 
-# Yarn Integrity file
+# Yarn
 .yarn-integrity
+.yarn/
+yarn.lock
 
-# dotenv environment variables file
-.env
+# Environment variables
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# IDE files
+# IDE
 .vscode/
 .idea/
 *.swp
