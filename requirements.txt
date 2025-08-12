@@ -1,0 +1,15 @@
+# NMC Total - Network Monitor And Cleaner - Dependencias de Python
+# No se requieren dependencias externas adicionales
+# La aplicación utiliza únicamente bibliotecas estándar de Python:
+
+# tkinter - Interfaz gráfica (incluida en Python estándar)
+# subprocess - Ejecución de comandos del sistema
+# threading - Manejo de hilos
+# json - Procesamiento de datos JSON
+# datetime - Manejo de fechas y tiempo
+# webbrowser - Apertura de URLs en navegador
+# re - Expresiones regulares
+# time - Funciones de tiempo
+
+# Nota: Esta aplicación está diseñada para funcionar con Python 3.6+
+# sin dependencias externas para máxima compatibilidad y seguridad.

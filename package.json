@@ -1,0 +1,104 @@
+{
+  "name": "nmc-total",
+  "version": "1.0.0",
+  "description": "NMC Total - Network Monitor And Cleaner with React UI",
+  "main": "public/electron.js",
+  "homepage": "./",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maxiusofmaximus/NMC-Total.git"
+  },
+  "author": "maxiusofmaximus",
+  "license": "SEE LICENSE IN LICENSE",
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "electron": "^22.0.0",
+    "electron-builder": "^23.6.0",
+    "lucide-react": "^0.263.1",
+    "recharts": "^2.7.2",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "electron-dev": "set ELECTRON_IS_DEV=true && electron .",
+    "electron-dev-ps": "$env:ELECTRON_IS_DEV='true'; electron .",
+    "dist": "npm run build && electron-builder",
+    "pack": "electron-builder --dir",
+    "audit": "npm audit --audit-level moderate",
+    "audit-fix": "npm audit fix",
+    "security-check": "npm audit && npm run test",
+    "preinstall": "npm audit",
+    "postinstall": "npm audit fix --dry-run"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "build": {
+    "appId": "com.nmctotal.app",
+    "productName": "NMC Total",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "build/**/*",
+      "public/electron.js",
+      "public/preload.js",
+      "node_modules/**/*"
+    ],
+    "security": {
+      "protocols": [
+        {
+          "name": "nmc-total",
+          "schemes": ["nmc"]
+        }
+      ]
+    }
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "network-monitor",
+    "security",
+    "malware-detection",
+    "system-cleaner",
+    "electron",
+    "react"
+  ],
+  "bugs": {
+    "url": "https://github.com/maxiusofmaximus/NMC-Total/issues"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/maxiusofmaximus"
+  },
+  "config": {
+    "unsafe-perm": false
+  }
+}
