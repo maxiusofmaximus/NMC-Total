@@ -22,7 +22,6 @@ Versión original diseñada para detectar y monitorear procesos maliciosos (troy
   - Vaciado de papelera de reciclaje
   - Liberador de espacio de Windows
   - Limpiezas automáticas programadas
-  - Panel deslizante estilo Discord para opciones de limpieza
 
 - **⚙️ Configuración Avanzada:**
   - Panel de configuración con botón FAB (Floating Action Button)
