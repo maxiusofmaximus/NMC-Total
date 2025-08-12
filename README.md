@@ -11,7 +11,7 @@ Interfaz moderna inspirada en Windows 11 con tecnología React y Electron, que i
 - **🔧 Configuración Avanzada**: Panel de configuración con botón FAB
 - Diseño moderno y completamente responsivo
 - Limpieza automática de DNS y archivos temporales
-- Detección automática de usuarios del sistema
+- Detección automática de usuarios del sistema (Para la limpieza de temporales)
 - Mejor rendimiento y experiencia de usuario
 
 ### 🐍 **Versión Python + Tkinter** (Clásica)
@@ -406,4 +406,4 @@ Para reportar problemas o sugerir mejoras:
 
 ---
 
-**🛡️ Mantén tu sistema seguro - Network Monitor And Cleaner**
+**🛡️ Mantén tu sistema seguro - NMC Total**

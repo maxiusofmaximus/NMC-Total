@@ -1,7 +1,7 @@
-# Demo Script - Red Monitor PowerShell
+# Demo Script - NMC Total PowerShell
 # Ejemplo de uso del script de monitoreo de red
 
-Write-Host "🛡️  DEMO - RED MONITOR POWERSHELL" -ForegroundColor Green
+Write-Host "🛡️  DEMO - NMC TOTAL POWERSHELL" -ForegroundColor Green
 Write-Host "=" * 50 -ForegroundColor Gray
 Write-Host ""
 

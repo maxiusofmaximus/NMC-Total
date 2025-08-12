@@ -173,7 +173,7 @@ class RedMonitorApp:
         self.logs_text.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
         
         # Agregar log inicial
-        self.add_log("🛡️ Red Monitor iniciado")
+        self.add_log("🛡️ NMC Total iniciado")
         self.add_log("💡 Tip: Haga clic en 'Iniciar Monitoreo' para comenzar el análisis en tiempo real")
         
 
@@ -550,7 +550,7 @@ class RedMonitorApp:
             filename = f"red_monitor_export_{timestamp}.txt"
             
             with open(filename, 'w', encoding='utf-8') as f:
-                f.write(f"RED MONITOR - REPORTE DE SEGURIDAD\n")
+                f.write(f"NMC TOTAL - REPORTE DE SEGURIDAD\n")
                 f.write(f"Generado: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
                 f.write("="*60 + "\n\n")
                 

@@ -1,6 +1,6 @@
 @echo off
 echo ========================================
-echo    Red Monitor - React + Electron
+echo    NMC Total - React + Electron
 echo ========================================
 echo.
 
@@ -17,7 +17,7 @@ if not exist "node_modules" (
     )
 )
 
-echo Iniciando Red Monitor con React + Electron...
+echo Iniciando NMC Total con React + Electron...
 echo.
 echo IMPORTANTE:
 echo - La aplicación se abrirá en una ventana de Electron
@@ -41,5 +41,5 @@ echo Iniciando Electron...
 npm run electron-dev
 
 echo.
-echo Red Monitor cerrado.
+echo NMC Total cerrado.
 pause

@@ -1,6 +1,6 @@
 @echo off
 echo ============================================
-echo    Red Monitor - Detector de Malware
+echo    NMC Total - Detector de Malware
 echo ============================================
 echo.
 echo Iniciando aplicacion...
@@ -19,7 +19,7 @@ if errorlevel 1 (
 )
 
 REM Ejecutar la aplicacion
-echo Ejecutando Red Monitor...
+echo Ejecutando NMC Total...
 python app.py
 
 REM Si hay error, mostrar mensaje

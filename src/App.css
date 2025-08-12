@@ -1416,7 +1416,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgb(0, 0, 0);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1424,18 +1424,18 @@ body {
 }
 
 .help-modal {
-  background: var(--card-bg);
+  background: var(--secondary-bg);
   border-radius: 16px;
   width: 90%;
   max-width: 800px;
   max-height: 90vh;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow);
   border: 1px solid var(--border-color);
 }
 
 .help-modal-header {
-  background: linear-gradient(135deg, #007bff, #0056b3);
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
   color: white;
   padding: 20px 24px;
   display: flex;
@@ -1483,7 +1483,7 @@ body {
   font-size: 20px;
   font-weight: 600;
   margin: 0 0 16px 0;
-  border-bottom: 2px solid var(--accent-color);
+  border-bottom: 2px solid var(--accent-blue);
   padding-bottom: 8px;
 }
 
@@ -1499,14 +1499,14 @@ body {
 }
 
 .help-tab-item {
-  background: var(--bg-secondary);
+  background: var(--secondary-bg);
   padding: 16px;
   border-radius: 8px;
-  border-left: 4px solid var(--accent-color);
+  border-left: 4px solid var(--accent-blue);
 }
 
 .help-tab-item strong {
-  color: var(--accent-color);
+  color: var(--accent-blue);
 }
 
 .risk-levels {
@@ -1519,7 +1519,7 @@ body {
   align-items: center;
   gap: 12px;
   padding: 12px;
-  background: var(--bg-secondary);
+  background: var(--secondary-bg);
   border-radius: 8px;
 }
 
@@ -1551,14 +1551,14 @@ body {
 }
 
 .control-item {
-  background: var(--bg-secondary);
+  background: var(--secondary-bg);
   padding: 12px;
   border-radius: 8px;
-  border-left: 3px solid var(--accent-color);
+  border-left: 3px solid var(--accent-blue);
 }
 
 .control-item strong {
-  color: var(--accent-color);
+  color: var(--accent-blue);
 }
 
 .cleanup-features {
@@ -1567,21 +1567,21 @@ body {
 }
 
 .feature-item {
-  background: var(--bg-secondary);
+  background: var(--secondary-bg);
   padding: 12px;
   border-radius: 8px;
-  border-left: 3px solid #ffc107;
+  border-left: 3px solid var(--accent-orange);
 }
 
 .feature-item strong {
-  color: #ffc107;
+  color: var(--accent-orange);
 }
 
 .risk-factors {
-  background: var(--bg-secondary);
+  background: var(--secondary-bg);
   padding: 16px;
   border-radius: 8px;
-  border-left: 4px solid #dc3545;
+  border-left: 4px solid var(--accent-red);
 }
 
 .factor-item {
@@ -1594,14 +1594,14 @@ body {
 }
 
 .actions-list {
-  background: var(--bg-secondary);
+  background: var(--secondary-bg);
   padding: 16px;
   border-radius: 8px;
-  border-left: 4px solid #28a745;
+  border-left: 4px solid var(--accent-green);
 }
 
 .action-item strong {
-  color: #28a745;
+  color: var(--accent-green);
   display: block;
   margin-bottom: 8px;
 }

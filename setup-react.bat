@@ -1,6 +1,6 @@
 @echo off
 echo ========================================
-echo    Red Monitor - Setup React App
+echo    NMC Total - Setup React App
 echo ========================================
 echo.
 

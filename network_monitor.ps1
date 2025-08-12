@@ -213,7 +213,7 @@ function Export-DetailedReport {
     $reportFile = "detailed_report_$(Get-Date -Format 'yyyyMMdd_HHmmss').txt"
     
     $report = @"
-🛡️  RED MONITOR - REPORTE DETALLADO DE SEGURIDAD
+🛡️  NMC TOTAL - REPORTE DETALLADO DE SEGURIDAD
 ================================================================
 Generado: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
 Equipo: $env:COMPUTERNAME

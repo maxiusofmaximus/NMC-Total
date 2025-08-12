@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 echo ========================================
-echo   Red Monitor - Sistema Optimizado
+echo   NMC Total - Sistema Optimizado
 echo ========================================
 echo.
 

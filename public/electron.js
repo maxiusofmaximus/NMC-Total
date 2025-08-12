@@ -385,7 +385,7 @@ ipcMain.handle('schedule-auto-cleanup', async () => {
         Unregister-ScheduledTask -TaskName $taskName -Confirm:$false -ErrorAction SilentlyContinue
       } catch {}
       
-      Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Settings $settings -Description "Limpieza automática semanal de Red Monitor"
+      Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Settings $settings -Description "Limpieza automática semanal de NMC Total"
       Write-Output "Tarea programada creada exitosamente"
     `;
     
