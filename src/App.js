@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo, memo } from 'react';
-import { Monitor, Shield, Activity, Trash2, Play, Square, RefreshCw, AlertTriangle, CheckCircle, XCircle, Settings, HelpCircle } from 'lucide-react';
+import { Monitor, Shield, Activity, Trash2, Play, Square, RefreshCw, AlertTriangle, CheckCircle, XCircle, Settings, HelpCircle, Palette } from 'lucide-react';
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
 import './App.css';
 
 // Componente optimizado para filas de conexión
@@ -104,7 +105,6 @@ const App = memo(() => {
   const [showExternalIPs, setShowExternalIPs] = useState(true);
   const [autoUpdate, setAutoUpdate] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
-  const [showCleanupPanel, setShowCleanupPanel] = useState(false);
   const [autoStart, setAutoStart] = useState(false);
   const [autoUpdatesEnabled, setAutoUpdatesEnabled] = useState(true);
   const [currentVersion, setCurrentVersion] = useState('1.0.0');
@@ -117,14 +117,35 @@ const App = memo(() => {
     diskCleanup: true,
     autoSchedule: false
   });
+  const [cleanupFrequencyDays, setCleanupFrequencyDays] = useState(7);
   const [cleanupProgress, setCleanupProgress] = useState(0);
   const [isCleaningUp, setIsCleaningUp] = useState(false);
   const [showHelpModal, setShowHelpModal] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState('dark');
 
   const addLog = useCallback((message, type = 'info') => {
     const timestamp = new Date().toLocaleTimeString();
     setLogs(prev => [...prev, { timestamp, message, type }].slice(-100));
   }, []);
+
+  // Función para cambiar el tema
+  const changeTheme = useCallback((theme) => {
+    setCurrentTheme(theme);
+    if (theme === 'dark') {
+      document.documentElement.removeAttribute('data-theme');
+    } else {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+    // Guardar preferencia en localStorage
+    localStorage.setItem('nmc-theme', theme);
+    addLog(`Tema cambiado a: ${theme === 'dark' ? 'Oscuro' : theme === 'light' ? 'Claro' : theme === 'blue' ? 'Azul' : 'Morado'}`, 'info');
+  }, [addLog]);
+
+  // Cargar tema guardado al iniciar
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('nmc-theme') || 'dark';
+    changeTheme(savedTheme);
+  }, [changeTheme]);
 
   // Función para determinar si una IP es local
   const isLocalIP = useCallback((ip) => {
@@ -161,6 +182,74 @@ const App = memo(() => {
 
     return { total, suspicious, safe };
   }, [filteredConnections]);
+
+  // Datos para gráficos
+  const chartData = useMemo(() => {
+    // Distribución de riesgo
+    const riskDistribution = [
+      { name: 'Bajo', value: connections.filter(c => c.risk === 'low').length, color: '#10b981' },
+      { name: 'Medio', value: connections.filter(c => c.risk === 'medium').length, color: '#f59e0b' },
+      { name: 'Alto', value: connections.filter(c => c.risk === 'high').length, color: '#ef4444' }
+    ].filter(item => item.value > 0);
+
+    // Distribución geográfica
+    const geoDistribution = connections.reduce((acc, conn) => {
+      const ip = conn.remoteAddress;
+      let region = 'Desconocido';
+      
+      if (isLocalIP(ip)) {
+        region = 'Local/Privada';
+      } else {
+        const firstOctet = parseInt(ip.split('.')[0]);
+        if (firstOctet >= 1 && firstOctet <= 50) region = 'América del Norte';
+        else if (firstOctet >= 51 && firstOctet <= 100) region = 'Europa';
+        else if (firstOctet >= 101 && firstOctet <= 150) region = 'Asia';
+        else if (firstOctet >= 151 && firstOctet <= 200) region = 'América del Sur';
+        else region = 'Otros';
+      }
+      
+      acc[region] = (acc[region] || 0) + 1;
+      return acc;
+    }, {});
+
+    const geoData = Object.entries(geoDistribution).map(([name, value]) => ({ name, value }));
+
+    // Procesos más activos
+    const processActivity = connections.reduce((acc, conn) => {
+      const process = conn.processName || 'Desconocido';
+      acc[process] = (acc[process] || 0) + 1;
+      return acc;
+    }, {});
+
+    const processData = Object.entries(processActivity)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 10)
+      .map(([name, value]) => ({ name, value }));
+
+    // Actividad por puerto
+    const portActivity = connections.reduce((acc, conn) => {
+      const port = conn.remotePort;
+      if (port) {
+        acc[port] = (acc[port] || 0) + 1;
+      }
+      return acc;
+    }, {});
+
+    const portData = Object.entries(portActivity)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 10)
+      .map(([name, value]) => ({ name: `Puerto ${name}`, value }));
+
+    return {
+      riskDistribution,
+      geoData,
+      processData,
+      portData
+    };
+  }, [connections, isLocalIP]);
+
+  // Colores para gráficos
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D', '#FFC658', '#FF7C7C', '#8DD1E1', '#D084D0'];
 
   // Función optimizada de análisis de riesgo con caché y algoritmos mejorados
   const analyzeRisk = useCallback((connection) => {
@@ -536,6 +625,20 @@ const App = memo(() => {
         </div>
         <div className="header-controls">
           <button 
+            className="control-btn theme-toggle"
+            onClick={() => {
+              const themes = ['dark', 'light', 'blue', 'purple'];
+              const currentIndex = themes.indexOf(currentTheme);
+              const nextTheme = themes[(currentIndex + 1) % themes.length];
+              changeTheme(nextTheme);
+            }}
+            title={`Tema actual: ${currentTheme === 'dark' ? 'Oscuro' : currentTheme === 'light' ? 'Claro' : currentTheme === 'blue' ? 'Azul' : 'Morado'} - Clic para cambiar`}
+          >
+            <Palette size={16} />
+            Tema
+          </button>
+          
+          <button 
             className={`control-btn ${isMonitoring ? 'active' : ''}`}
             onClick={isMonitoring ? stopMonitoring : startMonitoring}
             disabled={isLoading}
@@ -669,35 +772,122 @@ const App = memo(() => {
         {activeTab === 'analysis' && (
           <div className="analysis-tab">
             <div className="analysis-grid">
+              {/* Distribución de Riesgo */}
               <div className="analysis-card">
-                <h3>Distribución de Riesgo</h3>
-                <div className="risk-distribution">
-                  <div className="risk-bar">
-                    <div 
-                      className="risk-segment high"
-                      style={{ width: `${(stats.suspicious / stats.total) * 100 || 0}%` }}
-                    ></div>
-                    <div 
-                      className="risk-segment safe"
-                      style={{ width: `${(stats.safe / stats.total) * 100 || 0}%` }}
-                    ></div>
+                <h3>📊 Distribución de Riesgo</h3>
+                {chartData.riskDistribution.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={250}>
+                    <PieChart>
+                      <Pie
+                        data={chartData.riskDistribution}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                        outerRadius={80}
+                        fill="#8884d8"
+                        dataKey="value"
+                      >
+                        {chartData.riskDistribution.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="no-data">No hay datos de riesgo para mostrar</div>
+                )}
+              </div>
+
+              {/* Distribución Geográfica */}
+              <div className="analysis-card">
+                <h3>🌍 Distribución Geográfica</h3>
+                {chartData.geoData.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={250}>
+                    <BarChart data={chartData.geoData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" angle={-45} textAnchor="end" height={80} />
+                      <YAxis />
+                      <Tooltip />
+                      <Bar dataKey="value" fill="#0088FE" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="no-data">No hay datos geográficos para mostrar</div>
+                )}
+              </div>
+
+              {/* Procesos Más Activos */}
+              <div className="analysis-card">
+                <h3>🔄 Procesos Más Activos</h3>
+                {chartData.processData.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={250}>
+                    <BarChart data={chartData.processData} layout="horizontal">
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis type="number" />
+                      <YAxis dataKey="name" type="category" width={100} />
+                      <Tooltip />
+                      <Bar dataKey="value" fill="#00C49F" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="no-data">No hay datos de procesos para mostrar</div>
+                )}
+              </div>
+
+              {/* Actividad por Puerto */}
+              <div className="analysis-card">
+                <h3>🔌 Actividad por Puerto</h3>
+                {chartData.portData.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={250}>
+                    <BarChart data={chartData.portData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" angle={-45} textAnchor="end" height={80} />
+                      <YAxis />
+                      <Tooltip />
+                      <Bar dataKey="value" fill="#FFBB28" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="no-data">No hay datos de puertos para mostrar</div>
+                )}
+              </div>
+
+              {/* Métricas de Seguridad */}
+              <div className="analysis-card metrics-card">
+                <h3>🛡️ Métricas de Seguridad</h3>
+                <div className="metrics-grid">
+                  <div className="metric-item">
+                    <div className="metric-value">{stats.total}</div>
+                    <div className="metric-label">Total Conexiones</div>
                   </div>
-                  <div className="risk-legend">
-                    <div className="legend-item">
-                      <div className="legend-color high"></div>
-                      <span>Sospechosas ({stats.suspicious})</span>
-                    </div>
-                    <div className="legend-item">
-                      <div className="legend-color safe"></div>
-                      <span>Seguras ({stats.safe})</span>
-                    </div>
+                  <div className="metric-item suspicious">
+                    <div className="metric-value">{stats.suspicious}</div>
+                    <div className="metric-label">Sospechosas</div>
+                  </div>
+                  <div className="metric-item safe">
+                    <div className="metric-value">{stats.safe}</div>
+                    <div className="metric-label">Seguras</div>
+                  </div>
+                  <div className="metric-item">
+                    <div className="metric-value">{connections.filter(c => !isLocalIP(c.remoteAddress)).length}</div>
+                    <div className="metric-label">Externas</div>
+                  </div>
+                  <div className="metric-item">
+                    <div className="metric-value">{new Set(connections.map(c => c.processName)).size}</div>
+                    <div className="metric-label">Procesos Únicos</div>
+                  </div>
+                  <div className="metric-item">
+                    <div className="metric-value">{stats.total > 0 ? ((stats.suspicious / stats.total) * 100).toFixed(1) : 0}%</div>
+                    <div className="metric-label">Tasa de Riesgo</div>
                   </div>
                 </div>
               </div>
               
               {cleanupResults.length > 0 && (
                 <div className="analysis-card">
-                  <h3>Resultados de Limpieza</h3>
+                  <h3>🧹 Resultados de Limpieza</h3>
                   <div className="cleanup-results">
                     {cleanupResults.map((result, index) => (
                       <div key={index} className="cleanup-item">
@@ -813,7 +1003,22 @@ const App = memo(() => {
                     <span className="checkmark"></span>
                     <div className="option-content">
                       <h4>📅 Programar Limpieza Automática</h4>
-                      <p>Configura una limpieza automática semanal del sistema</p>
+                      <p>Configura una limpieza automática del sistema cada ciertos días</p>
+                      {cleanupOptions.autoSchedule && (
+                        <div className="frequency-input-container">
+                          <label htmlFor="cleanup-frequency">Frecuencia (días):</label>
+                          <input
+                            id="cleanup-frequency"
+                            type="number"
+                            min="1"
+                            max="365"
+                            value={cleanupFrequencyDays}
+                            onChange={(e) => setCleanupFrequencyDays(parseInt(e.target.value) || 1)}
+                            className="frequency-input"
+                          />
+                          <span className="frequency-help">La limpieza se ejecutará cada {cleanupFrequencyDays} día{cleanupFrequencyDays !== 1 ? 's' : ''}</span>
+                        </div>
+                      )}
                     </div>
                   </label>
                 </div>
@@ -967,103 +1172,52 @@ const App = memo(() => {
           </div>
 
           <div className="setting-group">
-            <button 
-              className="cleanup-options-btn"
-              onClick={() => {
-                setShowCleanupPanel(true);
-                setShowSettings(false);
-              }}
-            >
-              Opciones de Limpieza
-            </button>
+            <h3>🎨 Configuración de Tema</h3>
+            <div className="theme-selector">
+              <div className="theme-options">
+                <button 
+                  className={`theme-option ${currentTheme === 'dark' ? 'active' : ''}`}
+                  onClick={() => changeTheme('dark')}
+                  title="Tema Oscuro"
+                >
+                  <div className="theme-preview dark-preview"></div>
+                  <span>Oscuro</span>
+                </button>
+                <button 
+                  className={`theme-option ${currentTheme === 'light' ? 'active' : ''}`}
+                  onClick={() => changeTheme('light')}
+                  title="Tema Claro"
+                >
+                  <div className="theme-preview light-preview"></div>
+                  <span>Claro</span>
+                </button>
+                <button 
+                  className={`theme-option ${currentTheme === 'blue' ? 'active' : ''}`}
+                  onClick={() => changeTheme('blue')}
+                  title="Tema Azul"
+                >
+                  <div className="theme-preview blue-preview"></div>
+                  <span>Azul</span>
+                </button>
+                <button 
+                  className={`theme-option ${currentTheme === 'purple' ? 'active' : ''}`}
+                  onClick={() => changeTheme('purple')}
+                  title="Tema Morado"
+                >
+                  <div className="theme-preview purple-preview"></div>
+                  <span>Morado</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="setting-group">
+
           </div>
         </div>
       </div>
 
-      {/* Cleanup Panel - Sliding from Right */}
-      <div className={`cleanup-panel ${showCleanupPanel ? 'open' : ''}`}>
-        <div className="cleanup-panel-content">
-          <div className="cleanup-header">
-            <h3>🧹 Opciones de Limpieza</h3>
-            <button 
-              className="close-cleanup"
-              onClick={() => setShowCleanupPanel(false)}
-            >
-              ✕
-            </button>
-          </div>
-          
-          <div className="cleanup-options-grid">
-            <div className="cleanup-option">
-              <div className="cleanup-option-icon">🌐</div>
-              <div className="cleanup-option-content">
-                <h4>Limpiar DNS</h4>
-                <p>Limpia la caché DNS del sistema</p>
-                <button className="cleanup-action-btn" onClick={() => window.electronAPI.cleanDNS()}>
-                  Limpiar Ahora
-                </button>
-              </div>
-            </div>
 
-            <div className="cleanup-option">
-              <div className="cleanup-option-icon">🍪</div>
-              <div className="cleanup-option-content">
-                <h4>Cookies y Caché</h4>
-                <p>Elimina cookies y archivos de caché del navegador</p>
-                <button className="cleanup-action-btn">
-                  Limpiar Ahora
-                </button>
-              </div>
-            </div>
-
-            <div className="cleanup-option">
-              <div className="cleanup-option-icon">🗂️</div>
-              <div className="cleanup-option-content">
-                <h4>Archivos Temporales</h4>
-                <p>Elimina archivos temporales del sistema</p>
-                <button className="cleanup-action-btn" onClick={() => window.electronAPI.cleanTempFiles()}>
-                  Limpiar Ahora
-                </button>
-              </div>
-            </div>
-
-            <div className="cleanup-option">
-              <div className="cleanup-option-icon">🗑️</div>
-              <div className="cleanup-option-content">
-                <h4>Papelera de Reciclaje</h4>
-                <p>Vacía completamente la papelera de reciclaje</p>
-                <button className="cleanup-action-btn" onClick={() => window.electronAPI.emptyRecycleBin()}>
-                  Vaciar Ahora
-                </button>
-              </div>
-            </div>
-
-            <div className="cleanup-option">
-              <div className="cleanup-option-icon">💾</div>
-              <div className="cleanup-option-content">
-                <h4>Liberar Espacio</h4>
-                <p>Ejecuta el liberador de espacio de Windows</p>
-                <button className="cleanup-action-btn" onClick={() => window.electronAPI.runDiskCleanup()}>
-                  Ejecutar Ahora
-                </button>
-              </div>
-            </div>
-
-            <div className="cleanup-option">
-              <div className="cleanup-option-icon">⏰</div>
-              <div className="cleanup-option-content">
-                <h4>Limpiezas Automáticas</h4>
-                <p>Programa limpiezas automáticas semanales</p>
-                <button className="cleanup-action-btn" onClick={() => window.electronAPI.scheduleAutoCleanup()}>
-                  Programar
-                </button>
-              </div>
-            </div>
-          </div>
-
-
-        </div>
-      </div>
 
       {/* Help Modal */}
       {showHelpModal && (
@@ -1123,6 +1277,9 @@ const App = memo(() => {
               <div className="help-section">
                 <h3>🛠️ Controles Principales</h3>
                 <div className="controls-grid">
+                  <div className="control-item">
+                    <strong>🎨 Tema:</strong> Cambia entre temas Oscuro, Claro, Azul y Morado
+                  </div>
                   <div className="control-item">
                     <strong>🔍 Iniciar Monitoreo:</strong> Comienza el análisis continuo de conexiones
                   </div>
@@ -1186,6 +1343,25 @@ const App = memo(() => {
               </div>
 
               <div className="help-section">
+                <h3>🎨 Personalización</h3>
+                <div className="customization-info">
+                  <div className="feature-item">
+                    <strong>🌙 Tema Oscuro:</strong> Diseño por defecto, ideal para uso nocturno
+                  </div>
+                  <div className="feature-item">
+                    <strong>☀️ Tema Claro:</strong> Interfaz clara, perfecta para uso diurno
+                  </div>
+                  <div className="feature-item">
+                    <strong>🔵 Tema Azul:</strong> Estilo profesional con tonos azules
+                  </div>
+                  <div className="feature-item">
+                    <strong>🟣 Tema Morado:</strong> Diseño elegante con colores morados
+                  </div>
+                </div>
+                <p><strong>Cambio rápido:</strong> Usa el botón "Tema" en la barra superior o accede a configuración avanzada en el panel lateral.</p>
+              </div>
+
+              <div className="help-section">
                  <h3>🔒 Consideraciones de Seguridad</h3>
                  <p><strong>Importante:</strong> Network Monitor And Cleaner requiere permisos de administrador para acceso completo. No reemplaza un antivirus, sino que complementa la seguridad del sistema detectando actividad de red sospechosa.</p>
                </div>
@@ -1211,12 +1387,7 @@ const App = memo(() => {
         />
       )}
       
-      {showCleanupPanel && (
-        <div 
-          className="cleanup-overlay"
-          onClick={() => setShowCleanupPanel(false)}
-        />
-      )}
+
     </div>
   );
 });
