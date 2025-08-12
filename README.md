@@ -6,7 +6,7 @@
 Interfaz moderna inspirada en Windows 11 con tecnología React y Electron, que incluye:
 - Diseño moderno y responsivo
 - Limpieza automática de DNS y archivos temporales
-- Detección automática de usuarios del sistema
+- Detección automática de usuarios del sistema (Para la limpieza de temporales)
 - Mejor rendimiento y experiencia de usuario
 
 ### 🐍 **Versión Python + Tkinter** (Clásica)
@@ -16,7 +16,7 @@ Versión original diseñada para detectar y monitorear procesos maliciosos (troy
 
 ### 🌟 **Nuevas Funcionalidades (Versión React)**
 - **🧹 Sistema de Limpieza Avanzado:**
-  - Limpieza de DNS cache (`ipconfig /flushdns`)
+  - Limpieza de DNS cache
   - Eliminación de archivos temporales del sistema y usuarios
   - Limpieza de cookies y caché de navegadores
   - Vaciado de papelera de reciclaje
