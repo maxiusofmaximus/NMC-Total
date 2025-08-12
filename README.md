@@ -4,9 +4,14 @@
 
 ### 🚀 **Nueva Versión React + Electron** (Recomendada)
 Interfaz moderna inspirada en Windows 11 con tecnología React y Electron, que incluye:
-- Diseño moderno y responsivo
+- **🎨 Sistema de Temas Múltiples**: Oscuro, Claro, Azul y Morado
+- **📊 Análisis Visual Avanzado**: Gráficos interactivos con Recharts
+- **🧹 Limpieza Automática Programable**: Con configuración de frecuencia en días
+- **❓ Modal de Ayuda Integrado**: Documentación completa dentro de la app
+- **🔧 Configuración Avanzada**: Panel de configuración con botón FAB
+- Diseño moderno y completamente responsivo
 - Limpieza automática de DNS y archivos temporales
-- Detección automática de usuarios del sistema (Para la limpieza de temporales)
+- Detección automática de usuarios del sistema
 - Mejor rendimiento y experiencia de usuario
 
 ### 🐍 **Versión Python + Tkinter** (Clásica)
@@ -15,26 +20,49 @@ Versión original diseñada para detectar y monitorear procesos maliciosos (troy
 ## 🎯 Características Principales
 
 ### 🌟 **Nuevas Funcionalidades (Versión React)**
+- **🎨 Sistema de Temas Avanzado:**
+  - **Tema Oscuro**: Diseño elegante con tonos azules y verdes
+  - **Tema Claro**: Interfaz limpia y moderna para uso diurno
+  - **Tema Azul**: Variante profesional con acentos azules
+  - **Tema Morado**: Diseño único con tonalidades moradas
+  - Cambio dinámico de temas que afecta toda la interfaz
+
+- **📊 Análisis Visual Interactivo:**
+  - **Gráficos de Distribución Geográfica**: Visualización de conexiones por ubicación
+  - **Análisis de Procesos Activos**: Gráficos de barras horizontales
+  - **Actividad por Puerto**: Distribución de tráfico por puertos
+  - **Métricas de Seguridad**: Estadísticas en tiempo real
+  - Powered by Recharts para máximo rendimiento
+
 - **🧹 Sistema de Limpieza Avanzado:**
   - Limpieza de DNS cache
   - Eliminación de archivos temporales del sistema y usuarios
   - Limpieza de cookies y caché de navegadores
   - Vaciado de papelera de reciclaje
   - Liberador de espacio de Windows
-  - Limpiezas automáticas programadas
+  - **🕒 Limpieza Automática Programable**: Configurable de 1 a 365 días
+  - Input numérico intuitivo para frecuencia de limpieza
+
+- **❓ Sistema de Ayuda Integrado:**
+  - Modal de ayuda completo con documentación
+  - Guías de uso paso a paso
+  - Explicación de niveles de riesgo
+  - Controles y funcionalidades detalladas
+  - Diseño responsivo que se adapta a todos los temas
 
 - **⚙️ Configuración Avanzada:**
   - Panel de configuración con botón FAB (Floating Action Button)
   - Sistema de actualizaciones automáticas desde GitHub
   - Configuración de inicio automático con Windows
   - Control de versiones integrado
-  - Interfaz moderna con sidebar opaco
+  - Selector de temas integrado
 
 - **🎨 Interfaz Moderna:**
   - Diseño inspirado en Windows 11 y Discord
-  - Tema oscuro (Configurable)
+  - Sistema de temas completamente funcional
   - Animaciones fluidas y transiciones suaves
   - Componentes responsivos y accesibles
+  - Variables CSS dinámicas para cambios de tema instantáneos
 
 ### 🔍 **Funcionalidades Principales**
 - **Monitoreo en Tiempo Real**: Supervisa conexiones de red activas continuamente
@@ -51,8 +79,13 @@ Versión original diseñada para detectar y monitorear procesos maliciosos (troy
 - **Sistema Operativo:** Windows 10/11
 - **Node.js:** 16.0 o superior
 - **npm:** 8.0 o superior
+- **Dependencias principales:**
+  - React 18.x
+  - Recharts (para gráficos interactivos)
+  - Lucide React (iconografía)
 - **Privilegios:** Administrador (recomendado para funciones avanzadas)
 - **PowerShell:** 5.0 o superior
+- **Memoria RAM:** Mínimo 4GB (recomendado 8GB para análisis extensos)
 
 ### Para la Versión Python + Tkinter:
 - **Sistema Operativo:** Windows 10/11
@@ -129,23 +162,28 @@ La aplicación cuenta con 4 pestañas principales:
 - Información de PID, proceso, IPs y puertos
 - Identificación geográfica básica
 - Código de colores para conexiones sospechosas
+- Tabla responsiva que se adapta a todos los temas
 
 #### ⚠️ Procesos Sospechosos
 - Lista filtrada de conexiones con riesgo elevado
 - Sistema de puntuación de riesgo (1-5)
 - Razones específicas de la detección
 - Opciones de acción directa
+- Indicadores visuales de riesgo por colores
 
-#### 📊 Análisis
-- Estadísticas en tiempo real
-- Gráficos de actividad de red
-- Distribución geográfica
-- Métricas de seguridad
+#### 📊 Análisis (NUEVO)
+- **Estadísticas en Tiempo Real**: Métricas de seguridad actualizadas
+- **Gráfico de Distribución Geográfica**: Visualización por países/regiones
+- **Procesos Más Activos**: Ranking de procesos con mayor actividad
+- **Actividad por Puerto**: Análisis de tráfico por puertos específicos
+- **Gráficos Interactivos**: Powered by Recharts con tooltips informativos
+- **Diseño Responsivo**: Se adapta perfectamente a todos los temas
 
 #### 📝 Logs
-- Registro de actividades
-- Historial de detecciones
-- Eventos del sistema
+- Registro de actividades del sistema
+- Historial de detecciones y alertas
+- Eventos del sistema con timestamps
+- Filtrado por tipo de evento
 
 ### Controles Principales
 
@@ -153,6 +191,44 @@ La aplicación cuenta con 4 pestañas principales:
 - **⏹️ Detener**: Pausa el monitoreo
 - **🔄 Actualizar**: Escaneo manual único
 - **💾 Exportar**: Genera reporte completo
+- **🎨 Selector de Temas**: Cambio dinámico entre 4 temas disponibles
+- **❓ Ayuda**: Modal integrado con documentación completa
+- **⚙️ Configuración**: Panel FAB con opciones avanzadas
+
+### 🎨 Sistema de Temas
+
+La aplicación incluye 4 temas completamente funcionales:
+
+#### 🌙 Tema Oscuro (Por defecto)
+- Fondo principal: `#0f0f23`
+- Acentos: Azul cian (`#00d4ff`) y Verde (`#2ed573`)
+- Ideal para uso nocturno y sesiones prolongadas
+
+#### ☀️ Tema Claro
+- Fondo principal: `#f8f9fa`
+- Acentos: Azul (`#0066cc`) y Verde (`#28a745`)
+- Perfecto para uso diurno y ambientes bien iluminados
+
+#### 🔵 Tema Azul
+- Fondo principal: `#0d1421`
+- Acentos: Azul profesional (`#3498db`)
+- Diseño corporativo y profesional
+
+#### 🟣 Tema Morado
+- Fondo principal: `#1a0d2e`
+- Acentos: Morado (`#9b59b6`)
+- Diseño único y creativo
+
+**Cambio de Tema**: Utiliza el selector en la esquina superior derecha para cambiar instantáneamente entre temas.
+
+### 🧹 Limpieza Automática Programable
+
+La nueva funcionalidad permite configurar limpiezas automáticas:
+
+1. **Activar Limpieza Automática**: Marca la casilla "Programar Limpieza Automática"
+2. **Configurar Frecuencia**: Usa el input numérico para establecer días (1-365)
+3. **Confirmación Visual**: El texto se actualiza dinámicamente mostrando la frecuencia seleccionada
+4. **Validación**: El sistema valida automáticamente el rango permitido
 
 ### Acciones Avanzadas
 
@@ -229,12 +305,22 @@ La aplicación cuenta con 4 pestañas principales:
 ## 📁 Estructura de Archivos
 
 ```
-Red-Monitor/
-├── app.py                 # Aplicación principal con GUI
-├── network_monitor.ps1    # Script PowerShell independiente
-├── requirements.txt       # Dependencias (ninguna externa)
-├── README.md             # Este archivo
-└── exports/              # Carpeta para reportes (se crea automáticamente)
+Network-Monitor-And-Cleaner/
+├── src/
+│   ├── App.js            # Aplicación principal React
+│   ├── App.css           # Estilos con sistema de temas
+│   ├── index.js          # Punto de entrada React
+│   └── index.css         # Estilos globales
+├── public/
+│   ├── index.html        # Template HTML
+│   ├── electron.js       # Configuración Electron
+│   └── preload.js        # Script de preload Electron
+├── app.py                # Aplicación Python (versión clásica)
+├── network_monitor.ps1   # Script PowerShell independiente
+├── package.json          # Dependencias Node.js y scripts
+├── requirements.txt      # Dependencias Python
+├── README.md            # Este archivo
+└── exports/             # Carpeta para reportes (se crea automáticamente)
 ```
 
 ## 🔒 Consideraciones de Seguridad
@@ -288,7 +374,7 @@ Este proyecto está diseñado para uso educativo y de seguridad. Las mejoras sug
 
 ## ⚖️ Disclaimer
 
-**Red Monitor** es una herramienta de análisis de seguridad. Su uso debe cumplir con:
+**Network Monitor And Cleaner** es una herramienta de análisis de seguridad. Su uso debe cumplir con:
 
 - Leyes locales de privacidad y seguridad
 - Políticas de la organización
@@ -303,6 +389,21 @@ Para reportar problemas o sugerir mejoras:
 2. Verificar logs de la aplicación
 3. Documentar pasos para reproducir el problema
 
+## 🚀 Tecnologías Utilizadas
+
+### Versión React + Electron
+- **Frontend**: React 18.x con Hooks modernos
+- **Gráficos**: Recharts para visualizaciones interactivas
+- **Iconografía**: Lucide React para iconos consistentes
+- **Estilos**: CSS Variables para sistema de temas dinámico
+- **Desktop**: Electron para aplicación nativa
+- **Desarrollo**: Create React App con Hot Reload
+
+### Versión Python
+- **GUI**: Tkinter (biblioteca estándar)
+- **Análisis**: PowerShell integrado
+- **Compatibilidad**: Python 3.6+
+
 ---
 
-**🛡️ Mantén tu sistema seguro - NMC Total**
+**🛡️ Mantén tu sistema seguro - Network Monitor And Cleaner**
