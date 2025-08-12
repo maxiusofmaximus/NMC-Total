@@ -98,8 +98,8 @@ async function createWindow() {
       mainWindow.loadFile(path.join(__dirname, 'index.html'));
     }
   } else {
-    // En producción, carga el archivo HTML compilado
-    mainWindow.loadFile(path.join(__dirname, '../build/index.html'));
+    // En producción, cargar el archivo HTML compilado de la aplicación
+    mainWindow.loadFile(path.join(__dirname, '..', 'build', 'app.html'));
   }
 
   mainWindow.once('ready-to-show', () => {

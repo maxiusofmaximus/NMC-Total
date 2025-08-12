@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMC Total - Network Monitor And Cleaner</title>
+    <meta name="description" content="Herramienta profesional de monitoreo de red y limpieza de sistema. Detecta malware, monitorea conexiones y optimiza tu PC.">
+    <meta name="keywords" content="network monitor, malware detection, system cleaner, security, windows">
+    <meta name="author" content="maxiusofmaximus">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nmc-total.vercel.app/">
+    <meta property="og:title" content="NMC Total - Network Monitor And Cleaner">
+    <meta property="og:description" content="Herramienta profesional de monitoreo de red y limpieza de sistema">
+    <meta property="og:image" content="https://nmc-total.vercel.app/assets/preview.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://nmc-total.vercel.app/">
+    <meta property="twitter:title" content="NMC Total - Network Monitor And Cleaner">
+    <meta property="twitter:description" content="Herramienta profesional de monitoreo de red y limpieza de sistema">
+    <meta property="twitter:image" content="https://nmc-total.vercel.app/assets/preview.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="loading-text">Cargando NMC Total...</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>NMC Total</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Inicio</a>
+                <a href="#features" class="nav-link">Características</a>
+                <a href="#download" class="nav-link">Descargar</a>
+                <a href="#docs" class="nav-link">Documentación</a>
+                <a href="https://github.com/maxiusofmaximus/NMC-Total" class="nav-link" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i>
+                    <span>Herramienta de Seguridad Profesional</span>
+                </div>
+                <h1 class="hero-title">
+                    Network Monitor<br>
+                    <span class="gradient-text">& Cleaner</span>
+                </h1>
+                <p class="hero-description">
+                    Detecta malware, monitorea conexiones de red en tiempo real y optimiza tu sistema Windows con nuestra herramienta profesional de seguridad.
+                </p>
+                
+                <!-- Download Buttons -->
+                <div class="hero-buttons">
+                    <button id="download-btn" class="btn btn-primary btn-large">
+                        <i class="fas fa-download"></i>
+                        <span class="btn-text">Descargar para <span id="detected-os">Windows</span></span>
+                        <span class="btn-version">v1.0.0</span>
+                    </button>
+                    <button id="view-all-downloads" class="btn btn-secondary btn-large">
+                        <i class="fas fa-list"></i>
+                        Ver todas las versiones
+                    </button>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="total-downloads">0</div>
+                        <div class="stat-label">Descargas</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="github-stars">0</div>
+                        <div class="stat-label">Estrellas</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Gratis</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="app-preview">
+                    <div class="app-window">
+                        <div class="window-header">
+                            <div class="window-controls">
+                                <span class="control close"></span>
+                                <span class="control minimize"></span>
+                                <span class="control maximize"></span>
+                            </div>
+                            <div class="window-title">NMC Total - Network Monitor</div>
+                        </div>
+                        <div class="window-content">
+                            <div class="monitor-display">
+                                <div class="network-graph">
+                                    <div class="graph-line"></div>
+                                    <div class="graph-line"></div>
+                                    <div class="graph-line"></div>
+                                </div>
+                                <div class="status-indicators">
+                                    <div class="indicator active">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>Sistema Protegido</span>
+                                    </div>
+                                    <div class="indicator">
+                                        <i class="fas fa-network-wired"></i>
+                                        <span>Monitoreando Red</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="/assets/script.js"></script>
+</body>
+</html>
