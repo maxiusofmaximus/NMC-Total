@@ -136,7 +136,7 @@ async function getNetworkConnections() {
 
   try {
     const output = await processPool.execute('netstat', ['-ano']);
-    const connections = parseNetstatOutput(output);
+    const connections = parseNetstatOutput(output, await getProcessNames());
     
     // Actualizar caché
     connectionCache.set('connections', connections);
@@ -539,11 +539,10 @@ ipcMain.handle('open-virustotal', async (event, ip) => {
 });
 
 // Función optimizada para parsear salida de netstat
-function parseNetstatOutput(output) {
+function parseNetstatOutput(output, processNames) {
   const lines = output.split('\n');
   const connections = [];
-  const processCache = new Map();
-  
+
   // Regex optimizado para parsing
   const connectionRegex = /^\s*(TCP|UDP)\s+([^\s]+)\s+([^\s]+)\s+(\w+)\s+(\d+)/;
   
@@ -564,11 +563,7 @@ function parseNetstatOutput(output) {
       const remotePort = remoteParts[remoteParts.length - 1];
       
       // Obtener nombre del proceso con caché
-      let processName = processCache.get(pid);
-      if (!processName) {
-        processName = getProcessNameSync(pid);
-        processCache.set(pid, processName);
-      }
+      const processName = processNames.get(pid) || 'Unknown';
       
       connections.push({
         protocol,
@@ -586,24 +581,17 @@ function parseNetstatOutput(output) {
   return connections;
 }
 
-// Función optimizada para obtener nombres de procesos
-function getProcessNameSync(pid) {
+// Un solo tasklist para todos los PIDs (uno por PID bloqueaba el proceso principal ~2 s cada uno)
+async function getProcessNames() {
+  const names = new Map();
   try {
-    const { execSync } = require('child_process');
-    const output = execSync(`tasklist /FI "PID eq ${pid}" /FO CSV /NH`, { 
-      encoding: 'utf8',
-      timeout: 3000,
-      windowsHide: true,
-      stdio: ['ignore', 'pipe', 'ignore']
-    });
-    
-    const firstLine = output.split('\n')[0];
-    if (firstLine) {
-      const processName = firstLine.split(',')[0];
-      return processName ? processName.replace(/"/g, '') : 'Unknown';
+    const output = await processPool.execute('tasklist', ['/FO', 'CSV', '/NH']);
+    for (const line of output.split('\n')) {
+      const m = /^"([^"]*)","(\d+)"/.exec(line);
+      if (m) names.set(m[2], m[1]);
     }
-    return 'Unknown';
   } catch (error) {
-    return 'Unknown';
+    console.error('Error getting process names:', error);
   }
+  return names;
 }

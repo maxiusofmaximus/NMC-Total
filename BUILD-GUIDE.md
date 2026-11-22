@@ -32,21 +32,21 @@ pnpm install
 ```bash
 pnpm run dist:win
 ```
-**Resultado:** `dist/NMC Total Setup 1.0.0.exe`
+**Resultado:** `dist/NMC Total Setup 1.0.1.exe`
 
 ### 3. Compilar para macOS (.dmg)
 ```bash
 # Solo desde macOS
 pnpm run dist:mac
 ```
-**Resultado:** `dist/NMC Total-1.0.0.dmg`
+**Resultado:** `dist/NMC Total-1.0.1.dmg`
 
 ### 4. Compilar para Linux (AppImage)
 ```bash
 # Desde Linux o WSL
 pnpm run dist:linux
 ```
-**Resultado:** `dist/NMC Total-1.0.0.AppImage`
+**Resultado:** `dist/NMC Total-1.0.1.AppImage`
 
 ## 📦 Scripts Disponibles
 
@@ -78,9 +78,9 @@ pnpm run dist:linux
 
 ```
 dist/
-├── NMC Total Setup 1.0.0.exe     # Windows Installer
-├── NMC Total-1.0.0.dmg           # macOS Disk Image
-├── NMC Total-1.0.0.AppImage      # Linux AppImage
+├── NMC Total Setup 1.0.1.exe     # Windows Installer
+├── NMC Total-1.0.1.dmg           # macOS Disk Image
+├── NMC Total-1.0.1.AppImage      # Linux AppImage
 └── win-unpacked/                 # Windows Unpacked
 ```
 

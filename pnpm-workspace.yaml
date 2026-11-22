@@ -2,3 +2,8 @@ allowBuilds:
   electron: true
   core-js: false
   core-js-pure: false
+  electron-winstaller: false
+overrides:
+  "css-minimizer-webpack-plugin>serialize-javascript": "^7.0.5"
+  "jsonpath>underscore": "^1.13.8"
+  "app-builder-lib>minimatch": "^11.0.1"
