@@ -78,7 +78,7 @@ Versión original diseñada para detectar y monitorear procesos maliciosos (troy
 ### Para la Versión React + Electron:
 - **Sistema Operativo:** Windows 10/11
 - **Node.js:** 16.0 o superior
-- **npm:** 8.0 o superior
+- **pnpm:** 10 o superior
 - **Dependencias principales:**
   - React 18.x
   - Recharts (para gráficos interactivos)
@@ -113,8 +113,8 @@ Versión original diseñada para detectar y monitorear procesos maliciosos (troy
    run-react-app.bat
    
    # Opción 2: Manual
-   npm start          # Inicia servidor React
-   npm run electron-dev   # Inicia aplicación Electron
+   pnpm start          # Inicia servidor React
+   pnpm run electron-dev   # Inicia aplicación Electron
    ```
 
 ### 🐍 **Versión Python + Tkinter (Clásica)**

@@ -29,7 +29,7 @@ const appHtmlContent = `<!DOCTYPE html>
     <meta name="description" content="NMC Total - Network Monitor And Cleaner Application" />
     <title>NMC Total - Network Monitor</title>
     ${indexContent.match(/<link[^>]*\.css[^>]*>/g)?.join('\n    ') || ''}
-    ${indexContent.match(/<script[^>]*defer[^>]*>/g)?.join('\n    ') || ''}
+    ${indexContent.match(/<script[^>]*defer[^>]*><\/script>/g)?.join('\n    ') || ''}
 </head>
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

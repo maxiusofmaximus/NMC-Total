@@ -2,17 +2,14 @@
 
 ## 📋 Requisitos Previos
 
-### Node.js y npm
+### Node.js y pnpm
 ```bash
 # Verificar instalación
 node --version  # v18.0.0 o superior
-npm --version   # v9.0.0 o superior
+pnpm --version  # v10 o superior
 ```
 
-### Electron Builder
-```bash
-npm install -g electron-builder
-```
+electron-builder se instala como devDependency con `pnpm install`; no hace falta instalarlo globalmente.
 
 ## 🎨 Logo de la Aplicación
 
@@ -28,26 +25,26 @@ El logo se utiliza automáticamente como ícono de la aplicación para todas las
 
 ### 1. Instalar Dependencias
 ```bash
-npm install
+pnpm install
 ```
 
 ### 2. Compilar para Windows (.exe)
 ```bash
-npm run dist:win
+pnpm run dist:win
 ```
 **Resultado:** `dist/NMC Total Setup 1.0.0.exe`
 
 ### 3. Compilar para macOS (.dmg)
 ```bash
 # Solo desde macOS
-npm run dist:mac
+pnpm run dist:mac
 ```
 **Resultado:** `dist/NMC Total-1.0.0.dmg`
 
 ### 4. Compilar para Linux (AppImage)
 ```bash
 # Desde Linux o WSL
-npm run dist:linux
+pnpm run dist:linux
 ```
 **Resultado:** `dist/NMC Total-1.0.0.AppImage`
 
@@ -55,14 +52,14 @@ npm run dist:linux
 
 | Comando | Descripción |
 |---------|-------------|
-| `npm start` | Servidor de desarrollo React |
-| `npm run build` | Compilar React para producción |
-| `npm run electron` | Ejecutar Electron |
-| `npm run electron-dev` | Desarrollo con hot-reload |
-| `npm run dist` | Compilar para plataforma actual |
-| `npm run dist:win` | Compilar para Windows |
-| `npm run dist:mac` | Compilar para macOS |
-| `npm run dist:linux` | Compilar para Linux |
+| `pnpm start` | Servidor de desarrollo React |
+| `pnpm run build` | Compilar React para producción |
+| `pnpm run electron` | Ejecutar Electron |
+| `pnpm run electron-dev` | Desarrollo con hot-reload |
+| `pnpm run dist` | Compilar para plataforma actual |
+| `pnpm run dist:win` | Compilar para Windows |
+| `pnpm run dist:mac` | Compilar para macOS |
+| `pnpm run dist:linux` | Compilar para Linux |
 
 ## 🔧 Configuración Avanzada
 
@@ -91,12 +88,12 @@ dist/
 
 ### Ejecutar en Modo Desarrollo
 ```bash
-npm run electron-dev
+pnpm run electron-dev
 ```
 
 ### Solo React (sin Electron)
 ```bash
-npm start
+pnpm start
 ```
 
 ## 📋 Notas Importantes
@@ -111,13 +108,13 @@ npm start
 
 ### Error: "electron-builder not found"
 ```bash
-npm install -g electron-builder
+pnpm install
 ```
 
 ### Error: "Python not found"
 ```bash
 # Windows
-npm install --global windows-build-tools
+pnpm add -g windows-build-tools
 
 # macOS
 xcode-select --install
@@ -135,13 +132,13 @@ sudo chown -R $(whoami) ~/.npm
 
 ```bash
 # Compilación completa Windows
-npm install && npm run dist:win
+pnpm install && pnpm run dist:win
 
 # Solo desarrollo
-npm install && npm run electron-dev
+pnpm install && pnpm run electron-dev
 
 # Limpiar y recompilar
-rm -rf node_modules dist && npm install && npm run dist
+rm -rf node_modules dist && pnpm install && pnpm run dist
 ```
 
 ---

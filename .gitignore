@@ -140,9 +140,9 @@ Thumbs.db
 *.orig
 *.tmp
 
-# Lock files (keep package-lock.json for security)
+# Lock files (pnpm-lock.yaml is committed; do not use npm/yarn)
 yarn.lock
-pnpm-lock.yaml
+package-lock.json
 
 # Test coverage and reports
 coverage/
