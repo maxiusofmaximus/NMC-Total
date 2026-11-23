@@ -92,7 +92,12 @@
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
-      "createStartMenuShortcut": true
+      "createStartMenuShortcut": true,
+      "perMachine": false,
+      "allowElevation": false,
+      "guid": "NMC Total",
+      "uninstallDisplayName": "NMC Total",
+      "artifactName": "NMC-Total-${version}-setup.${ext}"
     }
   },
   "browserslist": {
